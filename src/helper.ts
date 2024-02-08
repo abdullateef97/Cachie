@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import logger from './logger';
 
-const dictionary: { [key: string]: number } = {};
+let dictionary: { [key: string]: number } = {};
 
 const saveInDictionary = (word: string): void => {
   dictionary[word] = dictionary[word] ? dictionary[word] + 1 : 1;
@@ -41,4 +41,14 @@ export const successResponse = (res: Response, data: { [key: string]: any }) => 
 
 export const badRequestError = (res: Response, message: string) => {
   res.status(400).json({ message });
+};
+
+//N.B this should only be used for testing
+export const clearDictionary = () => {
+  dictionary = {};
+};
+
+//N.B this should only be used for testing
+export const getDictionary = () => {
+  return dictionary;
 };
