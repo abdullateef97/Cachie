@@ -1,0 +1,56 @@
+openapi: "3.1.0"
+info:
+  title: "Cachie API doc"
+  version: "1.0.0"
+basePath: "/"
+paths:
+  /search:
+    post:
+      operationId: "search"
+      summary: "accepts a search query"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ["search_query"]
+              properties:
+                search_query:
+                  type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    description: "the status"
+
+  /analyse:
+    get:
+      operationId: "analyse"
+      summary: "returns number of times a phrase was found"
+      parameters:
+        - in: query
+          name: analysis_token
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: "object"
+                    description: "the result of the analysis"
+                    example: {"the": 1, "the boy": 3}
+                  time:
+                    type: "string"
+                    description: "Time taken for request to execute"
+                    example: "25ms"
